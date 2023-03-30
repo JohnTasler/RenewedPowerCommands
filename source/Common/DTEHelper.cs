@@ -10,11 +10,11 @@ using Tasler.RenewedPowerCommands.Linq;
 using Tasler.RenewedPowerCommands.Services;
 using Process = System.Diagnostics.Process;
 
-namespace Tasler.RenewedPowerCommands.Common
+namespace Tasler.RenewedPowerCommands.Extensions
 {
-	public static class DTEHelper
+	public static class DteExtensions
 	{
-		public static void RestartVS(DTE dte)
+		public static void RestartVS(this DTE dte)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -27,14 +27,14 @@ namespace Tasler.RenewedPowerCommands.Common
 			dte.Quit();
 		}
 
-		public static int CompileProject(Project project)
+		public static int Compile(this Project project)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
-			return DTEHelper.CompileProject(project, out _);
+			return project.Compile(out _);
 		}
 
-		public static int CompileProject(Project project, out string assemblyFile)
+		public static int Compile(this Project project, out string assemblyFile)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -53,7 +53,7 @@ namespace Tasler.RenewedPowerCommands.Common
 			return project.DTE.Solution.SolutionBuild.LastBuildInfo;
 		}
 
-		public static IEnumerable<UIHierarchyItem> GetUIProjectAndSolutionFoldersNodes(Solution solution)
+		public static IEnumerable<UIHierarchyItem> GetUIProjectAndSolutionFoldersNodes(this Solution solution)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -63,7 +63,7 @@ namespace Tasler.RenewedPowerCommands.Common
 				   select item;
 		}
 
-		public static bool IsUISolutionNode(UIHierarchyItem item)
+		public static bool IsUISolutionNode(this UIHierarchyItem item)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -71,7 +71,7 @@ namespace Tasler.RenewedPowerCommands.Common
 				|| (item.Object is ProjectItem projectItem && projectItem.Object is Project itemProject && itemProject.Kind == EnvDTE.Constants.vsProjectKindSolutionItems);
 		}
 
-		public static bool IsProjectNode(UIHierarchyItem item)
+		public static bool IsProjectNode(this UIHierarchyItem item)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -79,15 +79,15 @@ namespace Tasler.RenewedPowerCommands.Common
 				|| (item.Object is ProjectItem projectItem && projectItem.Object is Project itemProject && itemProject.Kind != EnvDTE.Constants.vsProjectKindSolutionItems);
 		}
 
-		public static IEnumerable<UIHierarchyItem> GetUIProjectNodes(Solution solution)
+		public static IEnumerable<UIHierarchyItem> GetUIProjectNodes(this Solution solution)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
 			string text = solution.Properties.Item("Name").Value.ToString();
-			return DTEHelper.GetUIProjectNodes(((DTE2)solution.DTE).ToolWindows.SolutionExplorer.GetItem(text).UIHierarchyItems);
+			return ((DTE2)solution.DTE).ToolWindows.SolutionExplorer.GetItem(text).UIHierarchyItems.GetUIProjectNodes();
 		}
 
-		public static IEnumerable<UIHierarchyItem> GetUIProjectNodes(UIHierarchyItems root)
+		public static IEnumerable<UIHierarchyItem> GetUIProjectNodes(this UIHierarchyItems root)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -97,7 +97,7 @@ namespace Tasler.RenewedPowerCommands.Common
 				   select item;
 		}
 
-		public static void OpenDocument(DTE dte, IDocumentInfo docInfo)
+		public static void OpenDocument(this DTE dte, IDocumentInfo docInfo)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 

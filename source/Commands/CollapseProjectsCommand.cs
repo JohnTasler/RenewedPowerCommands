@@ -74,7 +74,7 @@ namespace Tasler.RenewedPowerCommands.Commands
 			}
 			else
 			{
-				foreach (var item in DTEHelper.GetUIProjectNodes(Dte.Solution))
+				foreach (var item in Dte.Solution.GetUIProjectNodes())
 				{
 					CollapseProject(item);
 				}
@@ -97,7 +97,7 @@ namespace Tasler.RenewedPowerCommands.Commands
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
-			return DTEHelper.GetUIProjectNodes(root).Any(s => s.ItemsAreExpanded());
+			return root.GetUIProjectNodes().Any(s => s.ItemsAreExpanded());
 		}
 
 		private static bool IsSelectedProjectExpanded()
@@ -124,11 +124,11 @@ namespace Tasler.RenewedPowerCommands.Commands
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
-			if (!DTEHelper.IsUISolutionNode(project) && project.ItemsAreExpanded())
+			if (!project.IsUISolutionNode() && project.ItemsAreExpanded())
 			{
 				project.UIHierarchyItems.Expanded = false;
 			}
-			if (DTEHelper.IsProjectNode(project)
+			if (project.IsProjectNode()
 				&& project.Object is ProjectItem projectItem
 				&& projectItem.ContainingProject.IsKind(EnvDTE.Constants.vsProjectKindSolutionItems)
 				&& project.ItemsAreExpanded())

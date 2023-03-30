@@ -1,4 +1,6 @@
-# RenewedPowerCommands
+# PowerCommands Renewed for Visual Studio 2022
+
+## !!! This all needs updating for this extension !!!
 Visual Studio 2022 VSIX Theme extension project for the original Microsoft-provided themes available for VS2019.
 
 ![](source/Resources/RenewedPowerCommandsPreview.png)

@@ -74,7 +74,7 @@ namespace Tasler.RenewedPowerCommands.Commands
 
 			if (project != null)
 			{
-				if (DTEHelper.CompileProject(project) != 0)
+				if (project.Compile() != 0)
 				{
 					new ErrorListWindow(ServiceProvider).Show();
 					return;
