@@ -51,8 +51,8 @@
     <Compile Include="Commands\RemoveAndSortUsingsCommand.cs" />
     <Compile Include="Common\CommandEventArgs.cs" />
     <Compile Include="Common\CommandInterceptor.cs" />
-    <Compile Include="Common\DTEHelper.cs" />
     <Compile Include="Extensions\CommandInterceptorExtensions.cs" />
+    <Compile Include="Extensions\DteExtensions.cs" />
     <Compile Include="Extensions\DocumentExtensions.cs" />
     <Compile Include="Extensions\IServiceProviderExtensions.cs" />
     <Compile Include="Extensions\ProjectExtensions.cs" />
