@@ -1,0 +1,4 @@
+﻿# Renewed Power Commands Visual Studio Extension
+
+- 1.0.0 Initial release, includes Collapse All Projects
+
