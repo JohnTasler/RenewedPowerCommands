@@ -1,30 +1,22 @@
+using System;
+using System.ComponentModel.Design;
+using IServiceProvider = System.IServiceProvider;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.TextManager.Interop;
-using System;
-using System.ComponentModel.Design;
 using Tasler.RenewedPowerCommands.Extensions;
-using IServiceProvider = System.IServiceProvider;
 
 namespace Tasler.RenewedPowerCommands.Commands
 {
 	public abstract class DynamicCommand : OleMenuCommand
 	{
 		protected static IServiceProvider ServiceProvider => _serviceProvider;
+		private static IServiceProvider _serviceProvider;
 
-		protected static DTE2 Dte
-		{
-			get
-			{
-				if (_dte == null)
-				{
-					_dte = ServiceProvider.GetService<DTE>();
-				}
-				return (DTE2)_dte;
-			}
-		}
+		protected static DTE2 Dte => _dte ?? (_dte = (DTE2)ServiceProvider.GetService<DTE>());
+		private static DTE2 _dte;
 
 		public static Document GetActiveEditorDocument()
 		{
@@ -46,17 +38,8 @@ namespace Tasler.RenewedPowerCommands.Commands
 			return Dte.ActiveDocument;
 		}
 
-		protected static RenewedPowerCommandsPackage Package
-		{
-			get
-			{
-				if (_package == null)
-				{
-					_package = ServiceProvider.GetService<RenewedPowerCommandsPackage>();
-				}
-				return _package;
-			}
-		}
+		protected static RenewedPowerCommandsPackage Package => _package ?? (_package = ServiceProvider.GetService<RenewedPowerCommandsPackage>());
+		private static RenewedPowerCommandsPackage _package;
 
 		public DynamicCommand(IServiceProvider provider, EventHandler onExecute, CommandID id) : base(onExecute, id)
 		{
@@ -70,15 +53,6 @@ namespace Tasler.RenewedPowerCommands.Commands
 			oleMenuCommand.Enabled = (oleMenuCommand.Visible = (oleMenuCommand.Supported = this.CanExecute(oleMenuCommand)));
 		}
 
-		protected virtual bool CanExecute(OleMenuCommand command)
-		{
-			return Package.CommandsPage.IsCommandEnabled(command.CommandID.Guid, command.CommandID.ID);
-		}
-
-		private static DTE _dte;
-
-		private static IServiceProvider _serviceProvider;
-
-		private static RenewedPowerCommandsPackage _package;
+		protected abstract bool CanExecute(OleMenuCommand command);
 	}
 }

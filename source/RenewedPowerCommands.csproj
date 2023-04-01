@@ -51,7 +51,6 @@
     <Compile Include="Commands\RemoveAndSortUsingsCommand.cs" />
     <Compile Include="Common\CommandEventArgs.cs" />
     <Compile Include="Common\CommandInterceptor.cs" />
-    <Compile Include="Extensions\CommandInterceptorExtensions.cs" />
     <Compile Include="Extensions\DteExtensions.cs" />
     <Compile Include="Extensions\DocumentExtensions.cs" />
     <Compile Include="Extensions\IServiceProviderExtensions.cs" />
@@ -60,26 +59,9 @@
     <Compile Include="Linq\ProjectItemIterator.cs" />
     <Compile Include="Linq\ProjectIterator.cs" />
     <Compile Include="Linq\UIHierarchyItemIterator.cs" />
-    <Compile Include="OptionPages\CommandsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="OptionPages\CommandsControl.Designer.cs">
-      <DependentUpon>CommandsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OptionPages\CommandsPage.cs">
+    <Compile Include="OptionPages\OptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="OptionPages\DisabledCommandsDictionaryConverter.cs" />
-    <Compile Include="OptionPages\GeneralControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="OptionPages\GeneralControl.Designer.cs">
-      <DependentUpon>GeneralControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OptionPages\GeneralPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="OptionPages\RowItem.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,19 +107,11 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="OptionPages\CommandsControl.resx">
-      <DependentUpon>CommandsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="OptionPages\GeneralControl.resx">
-      <DependentUpon>GeneralControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
-      <MergeWithCTO>true</MergeWithCTO>
-      <ManifestResourceName>Resources</ManifestResourceName>
       <Generator>ResXFileCodeGenerator</Generator>
+      <MergeWithCTO>true</MergeWithCTO>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

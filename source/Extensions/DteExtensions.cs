@@ -4,8 +4,11 @@ using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+
+using Tasler.RenewedPowerCommands.Common;
 using Tasler.RenewedPowerCommands.Linq;
 using Tasler.RenewedPowerCommands.Services;
 using Process = System.Diagnostics.Process;
@@ -119,6 +122,12 @@ namespace Tasler.RenewedPowerCommands.Extensions
 					}
 				}
 			}
+		}
+
+		public static CommandInterceptor CreateCommandInterceptor<T>(this DTE dte, T commandId)
+			where T : Enum, IConvertible
+		{
+			return new CommandInterceptor(dte, typeof(T).GUID, commandId.ToInt32(CultureInfo.CurrentCulture));
 		}
 	}
 }

@@ -1,34 +1,23 @@
 ﻿using EnvDTE;
 using System;
 using Microsoft.VisualStudio.Shell;
+using System.Globalization;
 
 namespace Tasler.RenewedPowerCommands.Common
 {
-	internal class CommandInterceptor : IDisposable
+	public class CommandInterceptor : IDisposable
 	{
 		private DTE Dte { get; set; }
 
-		public string CommandGuid { get; set; }
+		private string CommandGuid { get; set; }
 
-		public int CommandId { get; set; }
+		private int CommandId { get; set; }
 
-		public CommandInterceptor(DTE dte)
+		public CommandInterceptor(DTE dte, Guid guid, int commandId)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
 			this.Dte = dte;
-			if (this.CommandEvents != null)
-			{
-				this.CommandEvents.AfterExecute += this.OnAfterExecute;
-				this.CommandEvents.BeforeExecute += this.OnBeforeExecute;
-			}
-		}
-
-		public CommandInterceptor(DTE dte, Guid guid, int commandId)
-			: this(dte)
-		{
-			ThreadHelper.ThrowIfNotOnUIThread();
-
 			this.CommandGuid = guid.ToString("B");
 			this.CommandId = commandId;
 			if (this.CommandEvents != null)
@@ -48,7 +37,7 @@ namespace Tasler.RenewedPowerCommands.Common
 			{
 				ThreadHelper.ThrowIfNotOnUIThread();
 
-				return _commandEvents ?? (_commandEvents = this.Dte.Events.get_CommandEvents(this.CommandGuid, this.CommandId));
+				return _commandEvents ?? (_commandEvents = this.Dte?.Events.get_CommandEvents(this.CommandGuid, this.CommandId));
 			}
 		}
 

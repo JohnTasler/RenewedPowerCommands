@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Tasler.RenewedPowerCommands.Common;
 using Tasler.RenewedPowerCommands.Extensions;
 using Tasler.RenewedPowerCommands.Linq;
+using Tasler.RenewedPowerCommands.OptionPages;
 using Tasler.RenewedPowerCommands.Shell;
 
 namespace Tasler.RenewedPowerCommands.Commands
@@ -30,7 +31,7 @@ namespace Tasler.RenewedPowerCommands.Commands
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
-			if (base.CanExecute(command))
+			if (Package.OptionsPage.RemoveAndSortUsingsCommand != DisabledEnabled.Disabled)
 			{
 				Project project = Dte.SelectedItems.Item(1).Project;
 				if (project == null)

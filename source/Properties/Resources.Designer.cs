@@ -61,29 +61,11 @@ namespace Tasler.RenewedPowerCommands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Renewed PowerCommands.
+        ///   Looks up a localized string similar to PowerCommands Renewed.
         /// </summary>
         internal static string _15600 {
             get {
                 return ResourceManager.GetString("15600", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Commands.
-        /// </summary>
-        internal static string _1912 {
-            get {
-                return ResourceManager.GetString("1912", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to RenewedPowerCommands Commands (description).
-        /// </summary>
-        internal static string _197 {
-            get {
-                return ResourceManager.GetString("197", resourceCulture);
             }
         }
         
@@ -97,7 +79,7 @@ namespace Tasler.RenewedPowerCommands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RenewedPowerCommands General Options (description).
+        ///   Looks up a localized string similar to Renewed PowerCommands Options (description).
         /// </summary>
         internal static string _2891 {
             get {
@@ -115,7 +97,7 @@ namespace Tasler.RenewedPowerCommands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to General.
+        ///   Looks up a localized string similar to Options.
         /// </summary>
         internal static string _4606 {
             get {
@@ -129,15 +111,6 @@ namespace Tasler.RenewedPowerCommands.Properties {
         internal static string _9394 {
             get {
                 return ResourceManager.GetString("9394", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        internal static string Error {
-            get {
-                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         

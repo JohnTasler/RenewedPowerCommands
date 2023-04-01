@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using Tasler.RenewedPowerCommands.Common;
 using Tasler.RenewedPowerCommands.Extensions;
 using Tasler.RenewedPowerCommands.Linq;
+using Tasler.RenewedPowerCommands.OptionPages;
 
 namespace Tasler.RenewedPowerCommands.Commands
 {
@@ -23,23 +24,13 @@ namespace Tasler.RenewedPowerCommands.Commands
 		{
 		}
 
-		protected static UIHierarchy SolutionExplorer
-		{
-			get
-			{
-				if (s_solutionExplorer == null)
-				{
-					s_solutionExplorer = Dte.ToolWindows.SolutionExplorer;
-				}
-				return s_solutionExplorer;
-			}
-		}
+		protected static UIHierarchy SolutionExplorer => s_solutionExplorer ?? (s_solutionExplorer = Dte.ToolWindows.SolutionExplorer);
 
 		protected override bool CanExecute(OleMenuCommand command)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
-			if (base.CanExecute(command))
+			if (Package.OptionsPage.CollapseProjectsCommand != DisabledEnabled.Disabled)
 			{
 				var project = Dte.SelectedItems.Item(1).Project;
 				if (project != null)
@@ -50,7 +41,7 @@ namespace Tasler.RenewedPowerCommands.Commands
 						? IsAtLeastOneProjectExpanded(GetSelectedUIHierarchy().UIHierarchyItems)
 						: IsSelectedProjectExpanded();
 				}
-				else if (new ProjectIterator(Dte.Solution).Count<Project>() > 0)
+				else if (new ProjectIterator(Dte.Solution).Any())
 				{
 					command.Text = "Collapse Projects";
 					return IsAtLeastOneProjectExpanded(SolutionExplorer.UIHierarchyItems);

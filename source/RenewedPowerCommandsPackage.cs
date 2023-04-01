@@ -1,31 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
-using Task = System.Threading.Tasks.Task;
-
-using EnvDTE;
+﻿using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
-
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Linq;
 using Tasler.RenewedPowerCommands.Common;
+using Tasler.RenewedPowerCommands.Extensions;
 using Tasler.RenewedPowerCommands.OptionPages;
 using Tasler.RenewedPowerCommands.Services;
-using Tasler.RenewedPowerCommands.Extensions;
+using Task = System.Threading.Tasks.Task;
 
 namespace Tasler.RenewedPowerCommands
 {
 	[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-	[ProvideMenuResource(1000, 1)]
+	[ProvideMenuResource("Menus.ctmenu", 1)]
 	[ProvideAutoLoad(EnvDTE.Constants.vsContextNoSolution, PackageAutoLoadFlags.BackgroundLoad)]
 	[ProvideService   (typeof(SCommandManagerService), ServiceName = "CommandManagerService")]
-	[ProvideProfile   (typeof(CommandsPage          ), "RenewedPowerCommands", "Commands", 15600, 1912, true, DescriptionResourceID = 197    )]
-	[ProvideOptionPage(typeof(CommandsPage          ), "RenewedPowerCommands", "Commands", 15600, 1912, true, "ToolsOptionsKeywords_Commands")]
-	[ProvideProfile   (typeof(GeneralPage           ), "RenewedPowerCommands", "General" , 15600, 4606, true, DescriptionResourceID = 2891   )]
-	[ProvideOptionPage(typeof(GeneralPage           ), "RenewedPowerCommands", "General" , 15600, 4606, true, "ToolsOptionsKeywords_General" )]
+	[ProvideProfile   (typeof(OptionsPage), "RenewedPowerCommands", "Options" , 15600, 4606, true, DescriptionResourceID = 2891   )]
+	[ProvideOptionPage(typeof(OptionsPage), "RenewedPowerCommands", "Options" , 15600, 4606, true, "ToolsOptionsKeywords_General" )]
 	[Guid(RenewedPowerCommandsPackage.PackageGuidString)]
 	public sealed class RenewedPowerCommandsPackage : AsyncPackage
 	{
@@ -40,11 +37,11 @@ namespace Tasler.RenewedPowerCommands
 			new CommandSet(this).Initialize();
 			_saveCommandInterceptors = new List<CommandInterceptor>
 			{
-				new CommandInterceptor(this.Dte).SetCommandId(VSConstants.VSStd97CmdID.Save),
-				new CommandInterceptor(this.Dte).SetCommandId(VSConstants.VSStd97CmdID.SaveProjectItem),
-				new CommandInterceptor(this.Dte).SetCommandId(VSConstants.VSStd97CmdID.SaveAs),
-				new CommandInterceptor(this.Dte).SetCommandId(VSConstants.VSStd97CmdID.SaveProjectItemAs),
-				new CommandInterceptor(this.Dte).SetCommandId(VSConstants.VSStd97CmdID.SaveSolution),
+				this.Dte.CreateCommandInterceptor(VSConstants.VSStd97CmdID.Save),
+				this.Dte.CreateCommandInterceptor(VSConstants.VSStd97CmdID.SaveProjectItem),
+				this.Dte.CreateCommandInterceptor(VSConstants.VSStd97CmdID.SaveAs),
+				this.Dte.CreateCommandInterceptor(VSConstants.VSStd97CmdID.SaveProjectItemAs),
+				this.Dte.CreateCommandInterceptor(VSConstants.VSStd97CmdID.SaveSolution),
 			};
 
 			try
@@ -80,38 +77,36 @@ namespace Tasler.RenewedPowerCommands
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
-			if (string.Compare(args.CommandGuid, typeof(VSConstants.VSStd97CmdID).GUID.ToString("B"), true) == 0 )
+			var commandName = ((VSConstants.VSStd97CmdID)(args.CommandId)).ToString();
+			Debug.WriteLine($"SaveCommandInterceptor_BeforeExecute: ={commandName}");
+
+			if (this.OptionsPage.RemoveAndSortUsingsOnSave || this.OptionsPage.FormatOnSave)
 			{
-				if (this.GeneralPage.RemoveAndSortUsingsOnSave || this.GeneralPage.FormatOnSave)
+				if (string.Compare(args.CommandGuid, typeof(VSConstants.VSStd97CmdID).GUID.ToString("B"), true) == 0 )
 				{
 					Document activeDocument = this.Dte.ActiveDocument;
-					IEnumerable<Document> enumerable;
-					if (args.CommandId == 0xE0)
-					{
-						enumerable = this.GetDocumentsToBeSaved();
-					}
-					else
-					{
-						enumerable = new Document[] { activeDocument };
-					}
+
+					IEnumerable<Document> enumerable = args.CommandId == (int)VSConstants.VSStd97CmdID.SaveSolution
+						? this.GetDocumentsToBeSaved()
+						: new Document[] { activeDocument };
 
 					foreach (Document document in enumerable)
 					{
 						if (document.ProjectItem.FileCodeModel != null
-							&& document.ProjectItem.ContainingProject.IsKind(VSLangProj.PrjKind.prjKindCSharpProject)
+							&& (document.ProjectItem.ContainingProject.IsKind(VSLangProj.PrjKind.prjKindCSharpProject)
 							|| document.ProjectItem.ContainingProject.IsKind(VSLangProj.PrjKind.prjKindVBProject)
 							|| document.ProjectItem.ContainingProject.IsKind(CpsCsProjectGuid)
-							|| document.ProjectItem.ContainingProject.IsKind(CpsVbProjectGuid))
+							|| document.ProjectItem.ContainingProject.IsKind(CpsVbProjectGuid)))
 						{
 							if (!activeDocument.Equals(document))
 							{
 								document.Activate();
 							}
-							if (this.GeneralPage.FormatOnSave)
+							if (this.OptionsPage.FormatOnSave)
 							{
 								this.Dte.ExecuteCommand("Edit.FormatDocument", string.Empty);
 							}
-							if (this.GeneralPage.RemoveAndSortUsingsOnSave)
+							if (this.OptionsPage.RemoveAndSortUsingsOnSave)
 							{
 								this.Dte.ExecuteCommand("Edit.RemoveAndSort", string.Empty);
 							}
@@ -125,11 +120,8 @@ namespace Tasler.RenewedPowerCommands
 		public DTE2 Dte => _dte ?? (_dte = this.GetService<DTE>() as DTE2);
 		private DTE2 _dte;
 
-		public CommandsPage CommandsPage => _commandsPage ?? (_commandsPage = base.GetDialogPage(typeof(CommandsPage)) as CommandsPage);
-		private CommandsPage _commandsPage;
-
-		public GeneralPage GeneralPage => _generalPage ?? (_generalPage = (base.GetDialogPage(typeof(GeneralPage)) as GeneralPage));
-		private GeneralPage _generalPage;
+		public OptionsPage OptionsPage => _optionsPage ?? (_optionsPage = (base.GetDialogPage(typeof(OptionsPage)) as OptionsPage));
+		private OptionsPage _optionsPage;
 
 		private List<CommandInterceptor> _saveCommandInterceptors;
 

@@ -2,7 +2,7 @@
 
 namespace Tasler.RenewedPowerCommands.Common
 {
-	internal class CommandEventArgs : EventArgs
+	public class CommandEventArgs : EventArgs
 	{
 		public string CommandGuid { get; private set; }
 

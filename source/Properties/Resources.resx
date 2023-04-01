@@ -117,29 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
   <data name="15600" xml:space="preserve">
-    <value>Renewed PowerCommands</value>
-  </data>
-  <data name="1912" xml:space="preserve">
-    <value>Commands</value>
-  </data>
-  <data name="197" xml:space="preserve">
-    <value>RenewedPowerCommands Commands (description)</value>
+    <value>PowerCommands Renewed</value>
   </data>
   <data name="25288" xml:space="preserve">
     <value>A set of power commands for Visual Studio</value>
   </data>
   <data name="2891" xml:space="preserve">
-    <value>RenewedPowerCommands General Options (description)</value>
+    <value>Renewed PowerCommands Options (description)</value>
   </data>
   <data name="41182" xml:space="preserve">
     <value>1.0</value>
   </data>
   <data name="4606" xml:space="preserve">
-    <value>General</value>
+    <value>Options</value>
   </data>
   <data name="9394" xml:space="preserve">
     <value>PowerCommands for Visual Studio</value>
