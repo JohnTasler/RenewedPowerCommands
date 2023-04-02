@@ -38,7 +38,7 @@ or some other command idea, please
 [the project's GitHub page](https://github.com/JohnTasler/RenewedPowerCommands). I'm in-between job right now
 so I might just be able to put it in soon.
 
-## Discussions with Microsoft developer community about the originaal extension
+## Discussions with Microsoft developer community about the original extension
 
 #### [Upgrade Popular MSFT Extensions to VS2022](https://developercommunity.visualstudio.com/t/Upgrade-Popular-MSFT-Extensions-to-VS202/1500844)
 
