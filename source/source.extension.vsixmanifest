@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
 	<Metadata>
-		<Identity Id="JohnTasler.RenewedPowerCommands" Version="1.0.0.0" Language="en-US" Publisher="John Tasler" />
+		<Identity Id="JohnTasler.RenewedPowerCommands" Version="1.0.1" Language="en-US" Publisher="John Tasler" />
 		<DisplayName>Renewed Power Commands for Visual Studio 2022</DisplayName>
 		<Description xml:space="preserve">Renewed PowerCommands is a set of some of the useful extensions for the Visual Studio IDE that were NOT moved into the Visual Studio 2022 environment.</Description>
 		<MoreInfo>https://marketplace.visualstudio.com/items?itemName=JohnTasler.RenewedPowerCommands</MoreInfo>
@@ -9,7 +9,7 @@
 		<ReleaseNotes>Resources\ReleaseNotes.txt</ReleaseNotes>
 		<Icon>Resources\RenewedPowerCommands_icon_90x.png</Icon>
 		<PreviewImage>Resources\RenewedPowerCommandsPreview.png</PreviewImage>
-		<Tags>Commands;power commands;Power Tools;PPT;Productivity;Renewed;Remove and Sort Usings;Collapse Projects</Tags>
+		<Tags>Commands;power commands;Power Tools;PPT;Productivity;Renewed;Format on save;Remove and Sort Usings;Collapse Projects</Tags>
 	</Metadata>
 	<Installation>
 		<InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">

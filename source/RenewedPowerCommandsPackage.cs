@@ -16,7 +16,7 @@ using Tasler.RenewedPowerCommands.OptionPages;
 using Tasler.RenewedPowerCommands.Services;
 using Task = System.Threading.Tasks.Task;
 
-[assembly:AssemblyVersion("1.0.0.0")]
+[assembly:AssemblyVersion("1.0.1")]
 [assembly:AssemblyProduct("Renewed Power Commands for Visual Studio 2022")]
 [assembly:AssemblyCompany("John Tasler")]
 
