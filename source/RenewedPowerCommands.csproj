@@ -48,7 +48,7 @@
     <Compile Include="CommandSet.cs" />
     <Compile Include="Commands\CollapseProjectsCommand.cs" />
     <Compile Include="Commands\DynamicCommand.cs" />
-    <Compile Include="Commands\RemoveAndSortUsingsCommand.cs" />
+    <Compile Include="Commands\RemoveSortUsingsCommand.cs" />
     <Compile Include="Common\CommandEventArgs.cs" />
     <Compile Include="Common\CommandInterceptor.cs" />
     <Compile Include="Extensions\DteExtensions.cs" />
