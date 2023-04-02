@@ -53,6 +53,9 @@ namespace Tasler.RenewedPowerCommands.Commands
 			oleMenuCommand.Enabled = (oleMenuCommand.Visible = (oleMenuCommand.Supported = this.CanExecute(oleMenuCommand)));
 		}
 
-		protected abstract bool CanExecute(OleMenuCommand command);
+		protected virtual bool CanExecute(OleMenuCommand command)
+		{
+			return Package.OptionsPage.IsCommandEnabled(this.GetType().Name);
+		}
 	}
 }

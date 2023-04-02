@@ -141,4 +141,7 @@
   <data name="ToolsOptionsKeywords_General" xml:space="preserve">
     <value>Remove and Sort Usings on save</value>
   </data>
+  <data name="UnknownCommandName_Format" xml:space="preserve">
+    <value>Unknown command name: {0}</value>
+  </data>
 </root>

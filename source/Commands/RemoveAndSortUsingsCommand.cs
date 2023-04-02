@@ -1,17 +1,12 @@
-﻿using EnvDTE;
-using Microsoft.VisualStudio.Shell;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using Tasler.RenewedPowerCommands.Common;
+using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 using Tasler.RenewedPowerCommands.Extensions;
 using Tasler.RenewedPowerCommands.Linq;
-using Tasler.RenewedPowerCommands.OptionPages;
 using Tasler.RenewedPowerCommands.Shell;
 
 namespace Tasler.RenewedPowerCommands.Commands
@@ -31,7 +26,7 @@ namespace Tasler.RenewedPowerCommands.Commands
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
-			if (Package.OptionsPage.RemoveAndSortUsingsCommand != DisabledEnabled.Disabled)
+			if (base.CanExecute(command))
 			{
 				Project project = Dte.SelectedItems.Item(1).Project;
 				if (project == null)
@@ -96,10 +91,10 @@ namespace Tasler.RenewedPowerCommands.Commands
 					{
 					}
 
-					if (alreadyOpenFiles.SingleOrDefault(f => f.Equals(f, StringComparison.OrdinalIgnoreCase)) != null)
+					if (alreadyOpenFiles.SingleOrDefault(f => f.Equals(fileName, StringComparison.OrdinalIgnoreCase)) != null)
 					{
 						Dte.ActiveDocument.Save(fileName);
-						return;
+						continue;
 					}
 
 					window.Close(vsSaveChanges.vsSaveChangesYes);

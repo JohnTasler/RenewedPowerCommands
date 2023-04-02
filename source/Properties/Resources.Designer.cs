@@ -131,5 +131,14 @@ namespace Tasler.RenewedPowerCommands.Properties {
                 return ResourceManager.GetString("ToolsOptionsKeywords_General", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown command name: {0}.
+        /// </summary>
+        internal static string UnknownCommandName_Format {
+            get {
+                return ResourceManager.GetString("UnknownCommandName_Format", resourceCulture);
+            }
+        }
     }
 }

@@ -1,15 +1,12 @@
-using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 using System.Linq;
 using System.Runtime.InteropServices;
-using Tasler.RenewedPowerCommands.Common;
 using Tasler.RenewedPowerCommands.Extensions;
 using Tasler.RenewedPowerCommands.Linq;
-using Tasler.RenewedPowerCommands.OptionPages;
 
 namespace Tasler.RenewedPowerCommands.Commands
 {
@@ -30,7 +27,7 @@ namespace Tasler.RenewedPowerCommands.Commands
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
-			if (Package.OptionsPage.CollapseProjectsCommand != DisabledEnabled.Disabled)
+			if (base.CanExecute(command))
 			{
 				var project = Dte.SelectedItems.Item(1).Project;
 				if (project != null)

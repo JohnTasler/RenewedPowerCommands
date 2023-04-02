@@ -1,24 +1,22 @@
-﻿using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
-using System.Reflection;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Linq;
+
+using EnvDTE;
+using EnvDTE80;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
+
 using Tasler.RenewedPowerCommands.Common;
 using Tasler.RenewedPowerCommands.Extensions;
 using Tasler.RenewedPowerCommands.OptionPages;
 using Tasler.RenewedPowerCommands.Services;
-using Task = System.Threading.Tasks.Task;
 
-[assembly:AssemblyVersion("1.0.1")]
-[assembly:AssemblyProduct("Renewed Power Commands for Visual Studio 2022")]
-[assembly:AssemblyCompany("John Tasler")]
+using Task = System.Threading.Tasks.Task;
 
 namespace Tasler.RenewedPowerCommands
 {
