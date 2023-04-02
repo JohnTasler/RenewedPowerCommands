@@ -57,6 +57,12 @@
 					<ButtonText>Power Commands</ButtonText>
 				</Strings>
 			</Menu>
+			<Menu guid="guidRenewedPowerCommandsSharedSet" id="idmSolutionFolderFlyout" priority="0x0100" type="Menu">
+				<Parent guid="guidCollapseProjectsCommand" id="grpidCollapseProjectsCommandGroup2" />
+				<Strings>
+					<ButtonText>Power Commands</ButtonText>
+				</Strings>
+			</Menu>
 		</Menus>
 		<Buttons>
 			<Button guid="guidCollapseProjectsCommand" id="cmdidCollapseProjectsCommand" priority="0x0100" type="Button">
@@ -108,12 +114,14 @@
 			<IDSymbol name="idgProjectNodeExplorer" value="0x2000" />
 			<IDSymbol name="idgProjectNodeProjectActions" value="0x2003" />
 			<IDSymbol name="idgProjectNodeRoot" value="0x1000" />
-			<IDSymbol name="idmProjectNodeFlyout" value="0x0001" />
 			<IDSymbol name="idgSolutionNodeCodeActions" value="0x2005" />
 			<IDSymbol name="idgSolutionNodeExplorer" value="0x2004" />
 			<IDSymbol name="idgSolutionNodeProjectActions" value="0x2007" />
 			<IDSymbol name="idgSolutionNodeRoot" value="0x1001" />
+			<IDSymbol name="idgSolutionFolderNode" value="0x2006" />
+			<IDSymbol name="idmProjectNodeFlyout" value="0x0001" />
 			<IDSymbol name="idmSolutionNodeFlyout" value="0x0002" />
+			<IDSymbol name="idmSolutionFolderFlyout" value="0x0003" />
 		</GuidSymbol>
 		<GuidSymbol name="guidRemoveSortUsingsCommand" value="{DAF452A2-2D1F-4D11-B477-97C2F71809D1}">
 			<IDSymbol name="cmdidRemoveSortUsingsCommand" value="0x0DBE" />

@@ -1,3 +1,4 @@
 ﻿# Renewed Power Commands Visual Studio Extension
 
-- 1.0.0 Initial release, includes Collapse All Projects
+- 1.0.0.0 Initial release, includes Collapse All Projects, Remove and Sort Usings, Format on Save, and Remove and Sort Usings on Save
+
