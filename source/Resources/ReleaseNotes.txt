@@ -1,5 +1,8 @@
 ﻿# Renewed Power Commands Visual Studio Extension
 
+- 1.0.3 Added Copy/Paste Class commands
+        Removed blocking compile step from Remove and Sort Usings command
+        Removed unnecessary Command Manager service
 - 1.0.2 Fixed logic error in Remove and Sort Usings command
 - 1.0.1 Fixed Commands default of Enabled
 - 1.0.0 Initial release, includes Collapse All Projects, Remove and Sort Usings, Format on Save, and Remove and Sort Usings on Save
