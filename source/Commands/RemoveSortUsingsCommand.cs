@@ -7,7 +7,6 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Tasler.RenewedPowerCommands.Extensions;
 using Tasler.RenewedPowerCommands.Linq;
-using Tasler.RenewedPowerCommands.Shell;
 
 namespace Tasler.RenewedPowerCommands.Commands
 {
@@ -70,12 +69,6 @@ namespace Tasler.RenewedPowerCommands.Commands
 
 			if (project != null)
 			{
-				if (project.Compile() != 0)
-				{
-					new ErrorListWindow(ServiceProvider).Show();
-					return;
-				}
-
 				var alreadyOpenFiles = new RunningDocumentTable(ServiceProvider).Select(info => info.Moniker).ToList();
 
 				foreach (var item in new ProjectItemIterator(project.ProjectItems).Where(i => i.GetFileCodeModel() != null))

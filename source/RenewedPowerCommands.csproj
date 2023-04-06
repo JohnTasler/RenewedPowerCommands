@@ -47,15 +47,19 @@
   <ItemGroup>
     <Compile Include="CommandSet.cs" />
     <Compile Include="Commands\CollapseProjectsCommand.cs" />
+    <Compile Include="Commands\CopyClassCommand.cs" />
     <Compile Include="Commands\DynamicCommand.cs" />
+    <Compile Include="Commands\PasteClassCommand.cs" />
     <Compile Include="Commands\RemoveSortUsingsCommand.cs" />
     <Compile Include="Common\CommandEventArgs.cs" />
     <Compile Include="Common\CommandInterceptor.cs" />
+    <Compile Include="Common\IOHelper.cs" />
     <Compile Include="Extensions\DteExtensions.cs" />
     <Compile Include="Extensions\DocumentExtensions.cs" />
     <Compile Include="Extensions\IServiceProviderExtensions.cs" />
     <Compile Include="Extensions\ProjectExtensions.cs" />
     <Compile Include="Extensions\UIHierarchyItemsExtensions.cs" />
+    <Compile Include="Linq\CodeElementIterator.cs" />
     <Compile Include="Linq\ProjectItemIterator.cs" />
     <Compile Include="Linq\ProjectIterator.cs" />
     <Compile Include="Linq\UIHierarchyItemIterator.cs" />
@@ -69,7 +73,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RenewedPowerCommandsPackage.cs" />
-    <Compile Include="Services\CommandManagerService.cs" />
     <Compile Include="Services\IDocumentInfo.cs" />
     <Compile Include="Shell\ErrorListWindow.cs" />
   </ItemGroup>

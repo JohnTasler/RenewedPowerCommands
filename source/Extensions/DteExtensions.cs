@@ -1,13 +1,12 @@
-﻿using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-
+using EnvDTE;
+using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 using Tasler.RenewedPowerCommands.Common;
 using Tasler.RenewedPowerCommands.Linq;
 using Tasler.RenewedPowerCommands.Services;
@@ -44,10 +43,10 @@ namespace Tasler.RenewedPowerCommands.Extensions
 			project.DTE.Solution.SolutionBuild.BuildProject(project.DTE.Solution.SolutionBuild.ActiveConfiguration.Name, project.UniqueName, true);
 			if (project.DTE.Solution.SolutionBuild.LastBuildInfo == 0)
 			{
-				string path = project.ConfigurationManager.ActiveConfiguration.Properties.Item("OutputPath").Value.ToString();
-				string path2 = project.Properties.Item("LocalPath").Value.ToString();
-				string path3 = project.Properties.Item("OutputFileName").Value.ToString();
-				assemblyFile = Path.Combine(path2, Path.Combine(path, path3));
+				var outputPath = project.ConfigurationManager.ActiveConfiguration.Properties.Item("OutputPath").Value.ToString();
+				var localPath = project.Properties.Item("LocalPath").Value.ToString();
+				var ouputFileName = project.Properties.Item("OutputFileName").Value.ToString();
+				assemblyFile = Path.Combine(localPath, Path.Combine(outputPath, ouputFileName));
 			}
 			else
 			{

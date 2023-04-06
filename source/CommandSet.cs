@@ -1,8 +1,7 @@
-﻿using Microsoft.VisualStudio.Shell;
-using System;
+﻿using System;
 using System.ComponentModel.Design;
+using Microsoft.VisualStudio.Shell;
 using Tasler.RenewedPowerCommands.Commands;
-using Tasler.RenewedPowerCommands.Services;
 
 namespace Tasler.RenewedPowerCommands
 {
@@ -12,7 +11,6 @@ namespace Tasler.RenewedPowerCommands
 		{
 			_serviceProvider = provider;
 			_menuCommandService = _serviceProvider.GetService<IMenuCommandService, OleMenuCommandService>();
-			_service = _serviceProvider.GetService<SCommandManagerService, ICommandManagerService>();
 		}
 
 		public void Initialize()
@@ -22,18 +20,13 @@ namespace Tasler.RenewedPowerCommands
 
 		private void RegisterMenuCommands()
 		{
-			this.AddAndRegisterCommand(new CollapseProjectsCommand(_serviceProvider));
-			this.AddAndRegisterCommand(new RemoveSortUsingsCommand(_serviceProvider));
-		}
-
-		private void AddAndRegisterCommand(OleMenuCommand command)
-		{
-			_menuCommandService.AddCommand(command);
-			_service.RegisterCommand(command);
+			_menuCommandService.AddCommand(new CollapseProjectsCommand(_serviceProvider));
+			_menuCommandService.AddCommand(new RemoveSortUsingsCommand(_serviceProvider));
+			_menuCommandService.AddCommand(new CopyClassCommand(_serviceProvider));
+			_menuCommandService.AddCommand(new PasteClassCommand(_serviceProvider));
 		}
 
 		private readonly IServiceProvider _serviceProvider;
 		private readonly OleMenuCommandService _menuCommandService;
-		private readonly ICommandManagerService _service;
 	}
 }

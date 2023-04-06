@@ -1,10 +1,6 @@
-﻿using EnvDTE;
+﻿using System;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tasler.RenewedPowerCommands.Extensions
 {
@@ -26,6 +22,12 @@ namespace Tasler.RenewedPowerCommands.Extensions
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 			return projectItem.FileCodeModel;
+		}
+
+		public static string GetName(this ProjectItem projectItem)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+			return projectItem.Name;
 		}
 	}
 }

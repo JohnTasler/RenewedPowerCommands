@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -14,7 +13,6 @@ using Microsoft.VisualStudio.Shell;
 using Tasler.RenewedPowerCommands.Common;
 using Tasler.RenewedPowerCommands.Extensions;
 using Tasler.RenewedPowerCommands.OptionPages;
-using Tasler.RenewedPowerCommands.Services;
 
 using Task = System.Threading.Tasks.Task;
 
@@ -23,7 +21,6 @@ namespace Tasler.RenewedPowerCommands
 	[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
 	[ProvideMenuResource("Menus.ctmenu", 1)]
 	[ProvideAutoLoad(EnvDTE.Constants.vsContextNoSolution, PackageAutoLoadFlags.BackgroundLoad)]
-	[ProvideService   (typeof(SCommandManagerService), ServiceName = "CommandManagerService")]
 	[ProvideProfile   (typeof(OptionsPage), "RenewedPowerCommands", "Options" , 15600, 4606, true, DescriptionResourceID = 2891   )]
 	[ProvideOptionPage(typeof(OptionsPage), "RenewedPowerCommands", "Options" , 15600, 4606, true, "ToolsOptionsKeywords_General" )]
 	[Guid(RenewedPowerCommandsPackage.PackageGuidString)]
@@ -36,8 +33,9 @@ namespace Tasler.RenewedPowerCommands
 		protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 		{
 			await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-			((IServiceContainer)this).AddService(typeof(SCommandManagerService), new ServiceCreatorCallback(this.CreateCommandManagerService), true);
+
 			new CommandSet(this).Initialize();
+
 			_saveCommandInterceptors = new List<CommandInterceptor>
 			{
 				this.Dte.CreateCommandInterceptor(VSConstants.VSStd97CmdID.Save),
@@ -127,19 +125,6 @@ namespace Tasler.RenewedPowerCommands
 		private OptionsPage _optionsPage;
 
 		private List<CommandInterceptor> _saveCommandInterceptors;
-
-		private object CreateCommandManagerService(IServiceContainer container, Type serviceType)
-		{
-			if (container != this)
-			{
-				return null;
-			}
-			if (typeof(SCommandManagerService) == serviceType)
-			{
-				return new CommandManagerService();
-			}
-			return null;
-		}
 
 		private IEnumerable<Document> GetDocumentsToBeSaved()
 		{
