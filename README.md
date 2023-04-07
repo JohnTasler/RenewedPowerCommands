@@ -1,5 +1,7 @@
 # PowerCommands Renewed for Visual Studio 2022
 
+![](source/Resources/RenewedPowerCommandsPreview.png)
+
 ## PowerCommands Renewed
 Microsoft DevLabs provided a nice set of [Power Commands](https://marketplace.visualstudio.com/items?itemName=VisualStudioPlatformTeam.PowerCommandsforVisualStudio),
 but stopped supporting them with Visual Studio 2022.
@@ -10,8 +12,6 @@ The first ones I've added are listed below.
 Individual power commands can be enabled or disabled from the Power Commands Renewed page in
 Tools -> Options in Visual Studio. Some Power Commands are enabled by default. Below is a list of the
 commands included in Power Commands Renewed for Visual Studio 2012. 
-
-![](source/Resources/RenewedPowerCommandsPreview.png)
 
 ### Format document on save 
 Enables formatting of tabs, spaces and other characters in a document to be saved. It is equivalent to using
